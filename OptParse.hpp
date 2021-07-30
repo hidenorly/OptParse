@@ -16,6 +16,7 @@
 
 #include <iostream>
 #include <string>
+#include <algorithm>
 
 class OptParse
 {
@@ -82,15 +83,31 @@ protected:
     return bFound;
   }
 
+protected:
+  std::string ljust(std::string str, int nLength){
+    std::string result = str;
+    for(int i=0, c=nLength-str.size(); i<c; i++){
+      result += " ";
+    }
+    return result;
+  }
+
 public:
   virtual void printHelp(std::vector<OptParseItem>& options){
+    int nOptionMax = 0;
+    int nFullOptionMax = 0;
+
     for( auto& anOption : options ){
-      std::cout << "\t" << anOption.option << "\t" << anOption.fullOption << "\t: " << anOption.description << std::endl;
+      nOptionMax = std::max( nOptionMax, (int)anOption.option.size() );
+      nFullOptionMax = std::max( nFullOptionMax, (int)anOption.fullOption.size() );
+    }
+    for( auto& anOption : options ){
+      std::cout << "  " << ljust(anOption.option, nOptionMax) << "\t" << ljust(anOption.fullOption, nFullOptionMax) << " : " << anOption.description << std::endl;
     }
     exit(0);
   };
 
-  OptParse(int argc, char **argv, std::vector<OptParseItem> options){
+  OptParse(int argc, char **argv, std::vector<OptParseItem> options, std::string description = ""){
     for(int i=1; i<argc; i++){
       args.push_back( std::string(argv[i]) );
     }
@@ -99,6 +116,9 @@ public:
     }
     parseOpts( options );
     if( values.contains("-h") ){
+      if( !description.empty() ){
+        std::cout << description << std::endl;
+      }
       printHelp(options);
     }
   }
