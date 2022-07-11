@@ -17,8 +17,6 @@
 #include <iostream>
 #include <string>
 #include <algorithm>
-#include <vector>
-#include <map>
 
 class OptParse
 {
@@ -63,14 +61,14 @@ protected:
     }
   };
 
-  virtual void parseArgs(std::vector<std::string>& _args, std::vector<OptParseItem>& options){
+  virtual void parseOpts(std::vector<std::string>& _args, std::vector<OptParseItem>& options){
     for( int i=0, c=_args.size(); i<c; i++ ){
       if( _args[i].starts_with("-") ){
         for( auto& anOption : options ){
-          if( _args[i] == anOption.option && anOption.bArgRequired ){
-            i++;
-            break;
-          } else if ( _args[i].starts_with( anOption.fullOption ) ) {
+          if( anOption.option == _args[i] || anOption.fullOption == _args[i] ){
+            if( anOption.bArgRequired ){
+              i++;
+            }
             break;
           }
         }
@@ -78,15 +76,10 @@ protected:
         args.push_back( _args[i] );
       }
     }
-  }
-
-  virtual void parseOpts(std::vector<std::string>& _args, std::vector<OptParseItem>& options){
-    parseArgs( _args, options );
 
     for( auto& anOption : options ){
       parseOption( _args, anOption );
     }
-
     for( auto& anOption : options ){
       if( anOption.option != "-h" && !values.contains( anOption.option ) ){
         values.insert_or_assign( anOption.option, anOption.bArgRequired ? anOption.value : anOption.option );
