@@ -17,6 +17,7 @@
 #include <iostream>
 #include <string>
 #include <algorithm>
+#include <map>
 
 class OptParse
 {
@@ -54,7 +55,7 @@ protected:
         if( nPos != std::string::npos ){
           values.insert_or_assign( anOption.option, _args[i].substr( nPos+1, _args[i].size() ) );
         } else {
-          values.insert_or_assign( anOption.option, anOption.option );
+          values.insert_or_assign( anOption.option, "true" );
         }
         break;
       }
@@ -82,7 +83,7 @@ protected:
     }
     for( auto& anOption : options ){
       if( anOption.option != "-h" && !values.contains( anOption.option ) ){
-        values.insert_or_assign( anOption.option, anOption.bArgRequired ? anOption.value : anOption.option );
+        values.insert_or_assign( anOption.option, anOption.value );
       }
     }
   };
