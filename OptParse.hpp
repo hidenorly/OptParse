@@ -1,5 +1,5 @@
 /*
-  Copyright (C) 2021, 2022 hidenorly
+  Copyright (C) 2021, 2022, 2025 hidenorly
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -46,7 +46,7 @@ protected:
         if( anOption.bArgRequired && (i+1) < c ){
           values.insert_or_assign( anOption.option, _args[i+1] );
         } else {
-          values.insert_or_assign( anOption.option, anOption.option );
+          values.insert_or_assign( anOption.option, "true" );
         }
         break;
       } else if( _args[i].starts_with( anOption.fullOption ) ){
