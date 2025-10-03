@@ -1,5 +1,5 @@
 /*
-  Copyright (C) 2022 hidenorly
+  Copyright (C) 2022, 2025 hidenorly
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -25,6 +25,7 @@ int main(int argc, char **argv)
   options.push_back( OptParse::OptParseItem("-r", "--samplingRate", true, "48000", "Set Sampling Rate"));
   options.push_back( OptParse::OptParseItem("-e", "--encoding", true, "PCM16", "Set Encoding PCM8, PCM16, PCM24, PCM32, PCMFLOAT"));
   options.push_back( OptParse::OptParseItem("-c", "--channel", true, "2", "Set channel 2, 2.1, 4, 4.1, 5, 5.1, 5.1.2, 7.1"));
+  options.push_back( OptParse::OptParseItem("-t", "--test", false, "false", "Specify if test"));
 
   OptParse optParser( argc, argv, options );
 
