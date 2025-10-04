@@ -10,6 +10,7 @@ int main(int argc, char **argv)
   options.push_back( OptParse::OptParseItem("-r", "--samplingRate", true, "48000", "Set Sampling Rate"));
   options.push_back( OptParse::OptParseItem("-e", "--encoding", true, "PCM16", "Set Encoding PCM8, PCM16, PCM24, PCM32, PCMFLOAT"));
   options.push_back( OptParse::OptParseItem("-c", "--channel", true, "2", "Set channel 2, 2.1, 4, 4.1, 5, 5.1, 5.1.2, 7.1"));
+  options.push_back( OptParse::OptParseItem("-t", "--test", false, "false", "Specify if test"));
 
   OptParse optParser( argc, argv, options );
 
@@ -31,13 +32,15 @@ int main(int argc, char **argv)
   -r  --samplingRate : Set Sampling Rate
   -e  --encoding     : Set Encoding PCM8, PCM16, PCM24, PCM32, PCMFLOAT
   -c  --channel      : Set channel 2, 2.1, 4, 4.1, 5, 5.1, 5.1.2, 7.1
+  -t  --Test         : Specify if test
   -h  --help         : Show help
 %
-% ./a.out arg1 -r 38400 arg2 -e PCMFLOAT --channel=5.1.2 arg3
+% ./a.out arg1 -r 38400 arg2 -e PCMFLOAT --channel=5.1.2 arg3 -t
 options:
 -c=5.1.2
 -e=PCMFLOAT
 -r=38400
+-t=true
 
 arguments:
 arg1
